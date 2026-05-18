@@ -50,7 +50,7 @@ npm install https://github.com/betweenus-co/react-native-emoji-picker/releases/d
 Example:
 
 ```bash
-npm install https://github.com/betweenus-co/react-native-emoji-picker/releases/download/v1.2.5/hiraku-ai-react-native-emoji-picker-1.2.5.tgz
+npm install https://github.com/betweenus-co/react-native-emoji-picker/releases/download/v1.2.6/hiraku-ai-react-native-emoji-picker-1.2.6.tgz
 ```
 
 ### Release flow
@@ -59,7 +59,7 @@ Push a matching version tag and GitHub Actions will build the package and upload
 
 ```bash
 git push origin main
-git push origin v1.2.5
+git push origin v1.2.6
 ```
 
 ### Peer Dependencies

@@ -43,8 +43,18 @@ jobs:
       - name: Pack tarball
         id: pack
         run: |
-          npm pack --ignore-scripts --json > pack-result.json
+          cp package.json package.json.release-backup
+          node <<'NODE'
+          const fs = require('fs');
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          if (pkg.scripts) {
+            delete pkg.scripts.prepare;
+          }
+          fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          NODE
+          npm pack --json > pack-result.json
           TARBALL=$(node -e "const fs = require('fs'); const pack = JSON.parse(fs.readFileSync('pack-result.json', 'utf8')); process.stdout.write(pack[0].filename);")
+          mv package.json.release-backup package.json
           echo "tarball=$TARBALL" >> "$GITHUB_OUTPUT"
           rm -f pack-result.json
 
