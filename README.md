@@ -25,9 +25,9 @@ A powerful, flexible emoji picker for React Native with modal and inline modes, 
 - **⚡ High Performance** - Optimized FlatList rendering
 - **📱 Cross-Platform** - iOS, Android, and Web ready
 
-## 🎉 Expo Go Compatible
+## 🎉 React Native + Expo Compatible
 
-This library works seamlessly with **Expo Go** - no custom native code required! All dependencies are supported in Expo managed workflow. Just install and start using it in your Expo projects.
+This library is built for **React Native** apps and can also be used from **Expo** projects as long as the required native dependencies are installed in the app. The published package ships precompiled JavaScript from `lib/`, so the consuming app does not need Bun or a local package build step.
 
 ## 🎮 Live Demo
 
@@ -50,8 +50,10 @@ npm install https://github.com/betweenus-co/react-native-emoji-picker/releases/d
 Example:
 
 ```bash
-npm install https://github.com/betweenus-co/react-native-emoji-picker/releases/download/v1.2.6/hiraku-ai-react-native-emoji-picker-1.2.6.tgz
+npm install https://github.com/betweenus-co/react-native-emoji-picker/releases/download/v1.2.7/hiraku-ai-react-native-emoji-picker-1.2.7.tgz
 ```
+
+For React Native and Expo apps, prefer the GitHub Release tarball over a raw git dependency. It already contains the compiled package output and avoids forcing the consuming app to run this package's build step during install.
 
 ### Release flow
 
@@ -59,7 +61,7 @@ Push a matching version tag and GitHub Actions will build the package and upload
 
 ```bash
 git push origin main
-git push origin v1.2.6
+git push origin v1.2.7
 ```
 
 ### Peer Dependencies
@@ -71,6 +73,12 @@ npm install react-native-mmkv react-native-svg
 > Note: `react-native-mmkv` requires additional native setup. See [MMKV documentation](https://github.com/mrousavy/react-native-mmkv#readme) for installation details.
 
 > Optional: If you want to pass `FlashList` via `FlatListComponent` or `TabFlatListComponent`, install `@shopify/flash-list` in your app separately. See [FlashList documentation](https://shopify.github.io/flash-list/) for setup details.
+
+### Build and bundling behavior
+
+The package build intentionally **does not prebundle, minify, or aggressively optimize** the runtime code. It only transpiles the library into `lib/module`, `lib/commonjs`, and `lib/typescript`.
+
+That keeps the package predictable for React Native and Expo consumers and lets **Metro / Expo CLI** apply the final platform-specific transforms, dead-code elimination, and production minification inside the app that uses the package.
 
 ## 🚀 Quick Start
 

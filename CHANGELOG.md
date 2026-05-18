@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2.7] - 2026-05-18
+
 ### Fixed
 - Pointed the React Native entry to the compiled module build so apps do not recompile the package source and trigger React compiler runtime crashes such as `useMemoCache` reading from a null dispatcher.
 - Reduced avoidable picker rerenders by memoizing the tab bar, search and skin tone controls, stabilizing derived tab props, and moving emoji row/header rendering into memoized item components.
@@ -11,6 +13,11 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - Added GitHub Actions workflows for CI builds on push/PR and for building a release `.tgz` tarball on version tags so the package can be installed directly from GitHub Releases with npm.
+
+### Changed
+- Replaced the `react-native-builder-bob` build command with a Bun-driven TypeScript build pipeline that emits `lib/module`, `lib/commonjs`, and `lib/typescript`.
+- Relaxed the `react` and `react-native` peer dependency ranges so the package can be consumed from a wider set of React Native and Expo app versions without unnecessary install warnings.
+- Documented that the published package ships unbundled, non-minified library output so Metro / Expo can perform the final app-level optimization step.
 
 ## [1.2.4] - 2026-03-04
 

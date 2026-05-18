@@ -21,10 +21,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
 
       - name: Install dependencies
-        run: npm ci --ignore-scripts
+        run: bun install --frozen-lockfile
 
       - name: Validate tag matches package version
         if: github.event_name == 'push'
@@ -38,7 +42,7 @@ jobs:
           fi
 
       - name: Build package
-        run: npm run build
+        run: bun run build
 
       - name: Pack tarball
         id: pack
