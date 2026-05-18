@@ -1,6 +1,6 @@
 {
   "name": "@hiraku-ai/react-native-emoji-picker",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "A flexible emoji picker for React Native.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -15,8 +15,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "bun run scripts/build.ts",
-    "prepare": "bun run scripts/build.ts"
+    "build": "bun run scripts/build.ts"
   },
   "repository": {
     "type": "git",
