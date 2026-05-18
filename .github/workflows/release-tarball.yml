@@ -1,0 +1,67 @@
+name: Release tarball
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Validate tag matches package version
+        if: github.event_name == 'push'
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if [ "$TAG_NAME" != "v$PACKAGE_VERSION" ]; then
+            echo "Tag $TAG_NAME does not match package.json version v$PACKAGE_VERSION"
+            exit 1
+          fi
+
+      - name: Build package
+        run: npm run build
+
+      - name: Pack tarball
+        id: pack
+        run: |
+          cp package.json package.json.release-backup
+          node <<'NODE'
+          const fs = require('fs');
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          if (pkg.scripts) {
+            delete pkg.scripts.prepare;
+          }
+          fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          NODE
+          npm pack --json > pack-result.json
+          TARBALL=$(node -e "const fs = require('fs'); const pack = JSON.parse(fs.readFileSync('pack-result.json', 'utf8')); process.stdout.write(pack[0].filename);")
+          mv package.json.release-backup package.json
+          echo "tarball=$TARBALL" >> "$GITHUB_OUTPUT"
+          rm -f pack-result.json
+
+      - name: Upload release asset
+        if: github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.pack.outputs.tarball }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
