@@ -107,6 +107,9 @@ export interface EmojiPickerProps {
   // FlashList performance
   initialNumToRender?: number;
   maxToRenderPerBatch?: number;
+  updateCellsBatchingPeriod?: number;
+  windowSize?: number;
+  removeClippedSubviews?: boolean;
 }
 
 export interface EmojiPickerModalProps extends Omit<EmojiPickerProps, 'onClose'> {

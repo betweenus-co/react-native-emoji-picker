@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Pointed the React Native entry to the compiled module build so apps do not recompile the package source and trigger React compiler runtime crashes such as `useMemoCache` reading from a null dispatcher.
 - Reduced avoidable picker rerenders by memoizing the tab bar, search and skin tone controls, stabilizing derived tab props, and moving emoji row/header rendering into memoized item components.
+- Fixed follow-up regressions from the release workflow update by restoring custom theme merging, keeping the public FlatList tuning props available, and aligning the README with the actual optional dependencies.
 
 ### Added
 - Added GitHub Actions workflows for CI builds on push/PR and for building a release `.tgz` tarball on version tags so the package can be installed directly from GitHub Releases with npm.

@@ -45,12 +45,17 @@ export function EmojiPickerThemeProvider({
   theme: customTheme,
   darkMode = false,
 }: EmojiPickerThemeProviderProps) {
+  const theme = useMemo(() => {
+    const baseTheme = darkMode ? darkTheme : lightTheme;
+    return mergeTheme(baseTheme, customTheme);
+  }, [customTheme, darkMode]);
+
   const value = useMemo(
     () => ({
-      theme: darkMode ? darkTheme : lightTheme,
+      theme,
       isDarkMode: darkMode,
     }),
-    [darkMode]
+    [darkMode, theme]
   );
 
   return (

@@ -276,6 +276,9 @@ function EmojiPickerInternal({
   // FlatList performance
   initialNumToRender = 30,
   maxToRenderPerBatch = 20,
+  updateCellsBatchingPeriod,
+  windowSize,
+  removeClippedSubviews,
 }: EmojiPickerProps) {
   const { theme } = useEmojiPickerTheme();
   
@@ -460,7 +463,20 @@ function EmojiPickerInternal({
         onEmojiSelect={handleEmojiSelect}
       />
     );
-  }, [handleEmojiSelect, themedStyles, categoryHeaderStyle, categoryNameMap, categoryContainerStyle, columns, selectedSkinTone, emojiButtonStyle, renderCategoryHeader, dynamicFontSize]);
+  }, [
+    handleEmojiSelect,
+    themedStyles.categoryTitle,
+    themedStyles.categoryDivider,
+    themedStyles.emojiButtonBackground,
+    categoryHeaderStyle,
+    categoryNameMap,
+    categoryContainerStyle,
+    columns,
+    selectedSkinTone,
+    emojiButtonStyle,
+    renderCategoryHeader,
+    dynamicFontSize,
+  ]);
 
   return (
     <View style={contentContainerStyles}>
@@ -527,6 +543,9 @@ function EmojiPickerInternal({
         showsVerticalScrollIndicator={false}
         maxToRenderPerBatch={maxToRenderPerBatch}
         initialNumToRender={initialNumToRender}
+        updateCellsBatchingPeriod={updateCellsBatchingPeriod}
+        windowSize={windowSize}
+        removeClippedSubviews={removeClippedSubviews}
         onScrollToIndexFailed={(info: any) => {
           const listRef = flatListRef.current;
           if (!listRef?.scrollToIndex) {
