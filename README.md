@@ -65,12 +65,12 @@ git push origin v1.2.6
 ### Peer Dependencies
 
 ```bash
-npm install react-native-mmkv react-native-svg @shopify/flash-list
+npm install react-native-mmkv react-native-svg
 ```
 
-> Note: `react-native-mmkv` requires additional native setup. See [MMKV documentation](https://github.com/mrousos/react-native-mmkv#readme) for installation details.
+> Note: `react-native-mmkv` requires additional native setup. See [MMKV documentation](https://github.com/mrousavy/react-native-mmkv#readme) for installation details.
 
-> Note: For optimal performance, `flash-list` is used instead of FlatList. See [FlashList documentation](https://shopify.github.io/flash-list/) for installation details.
+> Optional: If you want to pass `FlashList` via `FlatListComponent` or `TabFlatListComponent`, install `@shopify/flash-list` in your app separately. See [FlashList documentation](https://shopify.github.io/flash-list/) for setup details.
 
 ## 🚀 Quick Start
 

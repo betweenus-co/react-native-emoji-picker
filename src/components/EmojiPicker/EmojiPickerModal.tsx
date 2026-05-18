@@ -61,6 +61,9 @@ function EmojiPickerInternal({
   // FlatList performance
   initialNumToRender,
   maxToRenderPerBatch,
+  updateCellsBatchingPeriod,
+  windowSize,
+  removeClippedSubviews,
   // Icon overrides
   icons,
   // Modal customization
@@ -246,6 +249,9 @@ function EmojiPickerInternal({
             renderCategoryHeader={renderCategoryHeader}
             initialNumToRender={initialNumToRender}
             maxToRenderPerBatch={maxToRenderPerBatch}
+            updateCellsBatchingPeriod={updateCellsBatchingPeriod}
+            windowSize={windowSize}
+            removeClippedSubviews={removeClippedSubviews}
           />
         </Animated.View>
       </View>
